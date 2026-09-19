@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting to Stumble Cups...</title>
+  <script>
+    window.onload = function() {
+      // Passes the token/code query params directly to your app
+      window.location.href = "scmods://callback" + window.location.search + window.location.hash;
+    };
+  </script>
+</head>
+<body style="background:#0A0A0A; color:#FFFFFF; font-family:sans-serif; text-align:center; padding-top:50px;">
+  <h2>Authorizing Stumble Cups Mod Launcher...</h2>
+  <p>If you are not redirected automatically, <a id="app-link" href="#" style="color:#2663EB;">click here</a>.</p>
+
+  <script>
+    var appUrl = "scmods://callback" + window.location.search + window.location.hash;
+    document.getElementById("app-link").href = appUrl;
+  </script>
+</body>
+</html>
