@@ -5,25 +5,29 @@
     <title>Authenticating...</title>
 </head>
 <body>
-    <p id="status">Authorizing Stumble Cups Launcher...</p>
+    <p id="status" style="font-family: sans-serif; text-align: center; margin-top: 50px; font-size: 18px;">
+        Authorizing Stumble Cups Launcher... Redirecting to app...
+    </p>
     <script>
-        // Discord returns the token in the URL fragment (after #)
         window.onload = function() {
             const hash = window.location.hash;
             if (hash) {
-                // Construct the deep link back to your app
+                // Reconstruct the exact URL that Android App Links expects to intercept
                 const appDeepLink = "https://zsquak.github.io/SC-Mods-Mobile/callback.html" + hash;
                 
-                // Update text
-                document.getElementById("status").innerText = "Redirecting back to app...";
-                
-                // Try to redirect automatically
-                window.location.href = appDeepLink;
-                
-                // Fallback manual link if redirect fails
+                // Force open via location assignment or direct replacement
                 setTimeout(() => {
-                    document.body.innerHTML += `<br><br><a href="${appDeepLink}" style="font-size: 20px;">Click here if not redirected automatically</a>`;
-                }, 1000);
+                    window.location.replace(appDeepLink);
+                }, 500);
+
+                // Provide a clear fallback button if the browser blocks the automatic transition
+                document.body.innerHTML += `
+                    <div style="text-align: center; margin-top: 20px;">
+                        <a href="${appDeepLink}" style="font-size: 20px; padding: 10px 20px; background: #5865F2; color: white; text-decoration: none; border-radius: 5px;">
+                            Click here to return to app
+                        </a>
+                    </div>
+                `;
             } else {
                 document.getElementById("status").innerText = "No authorization token found.";
             }
