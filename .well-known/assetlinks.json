@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.example.sc_mods_android_launcher",
+    "sha256_cert_fingerprints": [
+      "A0:19:8F:3E:43:EB:13:28:5E:19:36:76:D7:3C:6A:08:41:6D:29:77:C9:7D:5A:78:17:E0:6B:15:D8:2E:2B:EB"
+    ]
+  }
+}]
