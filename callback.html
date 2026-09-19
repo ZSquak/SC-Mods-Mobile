@@ -1,22 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Redirecting to Stumble Cups...</title>
-  <script>
-    window.onload = function() {
-      // Passes the token/code query params directly to your app
-      window.location.href = "scmods://callback" + window.location.search + window.location.hash;
-    };
-  </script>
+    <meta charset="utf-8">
+    <title>Authenticating...</title>
 </head>
-<body style="background:#0A0A0A; color:#FFFFFF; font-family:sans-serif; text-align:center; padding-top:50px;">
-  <h2>Authorizing Stumble Cups Mod Launcher...</h2>
-  <p>If you are not redirected automatically, <a id="app-link" href="#" style="color:#2663EB;">click here</a>.</p>
-
-  <script>
-    var appUrl = "scmods://callback" + window.location.search + window.location.hash;
-    document.getElementById("app-link").href = appUrl;
-  </script>
+<body>
+    <p id="status">Authorizing Stumble Cups Launcher...</p>
+    <script>
+        // Discord returns the token in the URL fragment (after #)
+        window.onload = function() {
+            const hash = window.location.hash;
+            if (hash) {
+                // Construct the deep link back to your app
+                const appDeepLink = "https://zsquak.github.io/SC-Mods-Mobile/callback.html" + hash;
+                
+                // Update text
+                document.getElementById("status").innerText = "Redirecting back to app...";
+                
+                // Try to redirect automatically
+                window.location.href = appDeepLink;
+                
+                // Fallback manual link if redirect fails
+                setTimeout(() => {
+                    document.body.innerHTML += `<br><br><a href="${appDeepLink}" style="font-size: 20px;">Click here if not redirected automatically</a>`;
+                }, 1000);
+            } else {
+                document.getElementById("status").innerText = "No authorization token found.";
+            }
+        };
+    </script>
 </body>
 </html>
