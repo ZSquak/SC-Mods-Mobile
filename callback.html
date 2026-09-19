@@ -5,31 +5,32 @@
     <title>Authenticating...</title>
 </head>
 <body>
-    <p id="status" style="font-family: sans-serif; text-align: center; margin-top: 50px; font-size: 18px;">
-        Authorizing Stumble Cups Launcher... Redirecting to app...
-    </p>
+    <div style="font-family: sans-serif; text-align: center; margin-top: 100px;">
+        <h2>Discord Authorization Successful!</h2>
+        <p id="status">Returning to Stumble Cups Launcher...</p>
+        <p style="margin-top: 20px;">
+            <a id="launch-btn" href="#" style="font-size: 18px; padding: 12px 24px; background: #5865F2; color: white; text-decoration: none; border-radius: 5px; display: inline-block;">
+                Click here if the app doesn't open automatically
+            </a>
+        </p>
+    </div>
     <script>
         window.onload = function() {
             const hash = window.location.hash;
             if (hash) {
-                // Reconstruct the exact URL that Android App Links expects to intercept
-                const appDeepLink = "https://zsquak.github.io/SC-Mods-Mobile/callback.html" + hash;
+                // Point directly back to your GitHub Pages callback URL with the token hash
+                // Android's App Link intent filter will intercept this HTTPS link automatically
+                const targetUrl = "https://zsquak.github.io/SC-Mods-Mobile/callback.html" + hash;
                 
-                // Force open via location assignment or direct replacement
-                setTimeout(() => {
-                    window.location.replace(appDeepLink);
-                }, 500);
+                // Update the fallback button link
+                document.getElementById("launch-btn").setAttribute("href", targetUrl);
 
-                // Provide a clear fallback button if the browser blocks the automatic transition
-                document.body.innerHTML += `
-                    <div style="text-align: center; margin-top: 20px;">
-                        <a href="${appDeepLink}" style="font-size: 20px; padding: 10px 20px; background: #5865F2; color: white; text-decoration: none; border-radius: 5px;">
-                            Click here to return to app
-                        </a>
-                    </div>
-                `;
+                // Attempt automated trigger
+                setTimeout(function() {
+                    window.location.replace(targetUrl);
+                }, 300);
             } else {
-                document.getElementById("status").innerText = "No authorization token found.";
+                document.getElementById("status").innerText = "No authorization token found in URL.";
             }
         };
     </script>
